@@ -22,6 +22,8 @@
             padding: 60px 40px;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            transform-origin: center center;
         }
 
         h1 {
@@ -175,9 +177,13 @@
             setInterval(createHeartBurst, 500);
         });
 
-        // No button click (just in case they manage to click it)
-        noBtn.addEventListener('click', () => {
-            container.innerHTML = '<h1 class="success">Nice try! 😄</h1>';
+        // No button click - shrink the container by 50%
+        noBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const currentScale = parseFloat(container.style.transform.match(/scale\(([\d.]+)\)/) ? container.style.transform.match(/scale\(([\d.]+)\)/)[1] : 1);
+            const newScale = currentScale * 0.5;
+            container.style.transform = `scale(${newScale})`;
+            container.style.transformOrigin = 'center center';
         });
     </script>
 </body>
