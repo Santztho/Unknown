@@ -1,190 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angela Trujillo, Will You Be My Valentine?</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
-            font-family: 'Arial', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACCESS DENIED</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .container {
-            text-align: center;
-            background: white;
-            padding: 60px 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-            transform-origin: center center;
-        }
+  :root {
+    --green: #00ff41;
+    --cyan: #00e5ff;
+    --red: #ff003c;
+    --dark: #050a05;
+    --glow-green: 0 0 8px #00ff41, 0 0 20px #00ff4180, 0 0 40px #00ff4140;
+    --glow-red: 0 0 8px #ff003c, 0 0 20px #ff003c80;
+    --glow-cyan: 0 0 8px #00e5ff, 0 0 20px #00e5ff80;
+  }
 
-        h1 {
-            font-size: 48px;
-            color: #ff1493;
-            margin: 0 0 40px 0;
-            letter-spacing: 1px;
-        }
+  body {
+    background: var(--dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+    position: relative;
+  }
 
-        .buttons {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            position: relative;
-        }
+  /* Scanlines */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,255,65,0.03) 2px,
+      rgba(0,255,65,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 100;
+    animation: scanlines 8s linear infinite;
+  }
 
-        button {
-            padding: 15px 40px;
-            font-size: 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.1s ease;
-        }
+  /* Grid bg */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,65,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,65,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-        #yesBtn {
-            background-color: #ff1493;
-            color: white;
-        }
+  @keyframes scanlines {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100px; }
+  }
 
-        #yesBtn:hover {
-            background-color: #ff69b4;
-            transform: scale(1.1);
-        }
+  .container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
 
-        #noBtn {
-            background-color: #888;
-            color: white;
-            position: relative;
-        }
+  /* Glitch border box */
+  .skull-wrapper {
+    position: relative;
+    padding: 24px 32px;
+    border: 1px solid var(--green);
+    box-shadow: var(--glow-green), inset 0 0 30px rgba(0,255,65,0.05);
+    animation: borderPulse 3s ease-in-out infinite;
+  }
 
-        #noBtn:hover {
-            background-color: #666;
-        }
+  .skull-wrapper::before, .skull-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: var(--cyan);
+    border-style: solid;
+  }
+  .skull-wrapper::before { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
+  .skull-wrapper::after { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
 
-        .success {
-            font-size: 36px;
-            color: #ff1493;
-            margin-top: 30px;
-        }
+  @keyframes borderPulse {
+    0%, 100% { box-shadow: var(--glow-green), inset 0 0 30px rgba(0,255,65,0.05); }
+    50% { box-shadow: var(--glow-cyan), inset 0 0 30px rgba(0,229,255,0.07); }
+  }
 
-        .heart {
-            position: fixed;
-            pointer-events: none;
-            font-size: 40px;
-            animation: float-up 3s ease-out forwards;
-        }
+  .skull {
+    font-size: clamp(80px, 15vw, 140px);
+    line-height: 1;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(0,255,65,0.7)) drop-shadow(0 0 30px rgba(0,255,65,0.4));
+    animation: skullFlicker 4s ease-in-out infinite, skullFloat 3s ease-in-out infinite;
+  }
 
-        @keyframes float-up {
-            0% {
-                opacity: 1;
-                transform: translateY(0) translateX(0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(var(--ty)) translateX(var(--tx)) scale(0.5);
-            }
-        }
-    </style>
+  @keyframes skullFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes skullFlicker {
+    0%, 96%, 100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(0,255,65,0.7)) drop-shadow(0 0 30px rgba(0,255,65,0.4)); }
+    97% { opacity: 0.4; filter: drop-shadow(0 0 2px rgba(255,0,60,0.9)); }
+    98% { opacity: 1; filter: drop-shadow(0 0 20px rgba(0,229,255,0.9)); }
+    99% { opacity: 0.6; }
+  }
+
+  .text-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .line1, .line2 {
+    font-family: 'Orbitron', sans-serif;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+  }
+
+  .line1 {
+    font-size: clamp(18px, 3.5vw, 36px);
+    font-weight: 900;
+    color: var(--red);
+    text-shadow: var(--glow-red);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-right: 3px solid var(--red);
+    animation:
+      typewriterLine1 1.8s steps(28, end) 0.8s forwards,
+      cursorBlink 0.7s step-end 0.8s infinite;
+  }
+
+  .line2 {
+    font-size: clamp(13px, 2.5vw, 22px);
+    font-weight: 900;
+    color: var(--green);
+    text-shadow: var(--glow-green);
+    letter-spacing: 0.12em;
+    border-right: 3px solid var(--green);
+    opacity: 0;
+    animation:
+      fadeIn 0s 3.2s forwards,
+      typewriterLine2 1s steps(14, end) 3.2s forwards,
+      cursorBlinkGreen 0.7s step-end 3.2s 6,
+      hideCursor 0s 6.4s forwards;
+  }
+
+  @keyframes typewriterLine1 {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes typewriterLine2 {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes cursorBlink {
+    0%, 100% { border-color: var(--red); }
+    50% { border-color: transparent; }
+  }
+
+  @keyframes cursorBlinkGreen {
+    0%, 100% { border-color: var(--green); }
+    50% { border-color: transparent; }
+  }
+
+  @keyframes hideCursor {
+    to { border-color: transparent; }
+  }
+
+  /* Status bar */
+  .status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: rgba(0,255,65,0.4);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: statusFade 0.5s ease 5s forwards;
+    opacity: 0;
+    margin-top: 8px;
+  }
+
+  @keyframes statusFade {
+    to { opacity: 1; }
+  }
+
+  .status span {
+    animation: blink 1.2s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Corner decorations */
+  .corner {
+    position: fixed;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: rgba(0,255,65,0.25);
+    letter-spacing: 0.1em;
+    z-index: 50;
+  }
+  .corner.tl { top: 16px; left: 20px; }
+  .corner.tr { top: 16px; right: 20px; text-align: right; }
+  .corner.bl { bottom: 16px; left: 20px; }
+  .corner.br { bottom: 16px; right: 20px; text-align: right; }
+
+  /* Glitch effect on load */
+  @keyframes glitchIn {
+    0% { transform: skewX(20deg) scaleY(0.8); opacity: 0; filter: hue-rotate(90deg); }
+    30% { transform: skewX(-5deg) scaleY(1.05); opacity: 0.8; }
+    60% { transform: skewX(2deg); opacity: 0.9; }
+    100% { transform: skewX(0deg) scaleY(1); opacity: 1; filter: hue-rotate(0deg); }
+  }
+
+  .container {
+    animation: glitchIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Angela Trujillo, Will you be my Valentine? 💕</h1>
-        <div class="buttons">
-            <button id="yesBtn">Yes</button>
-            <button id="noBtn">No</button>
-        </div>
-    </div>
 
-    <script>
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-        const container = document.querySelector('.container');
-        
-        let offsetX = 0;
-        let offsetY = 0;
+<div class="corner tl">SYS://BREACH_DETECTED<br>IP: 192.168.∞.0</div>
+<div class="corner tr">USER: SANTI<br>LVL: ELITE</div>
+<div class="corner bl">FIREWALL: DISABLED<br>ENCRYPTION: NULL</div>
+<div class="corner br">▓▓▓▓▓▓▒░ 98%<br>ACCESS: GRANTED</div>
 
-        // Make the No button gently repel from the cursor
-        document.addEventListener('mousemove', (e) => {
-            const rect = noBtn.getBoundingClientRect();
-            const btnCenterX = rect.left + rect.width / 2;
-            const btnCenterY = rect.top + rect.height / 2;
+<div class="container">
+  <div class="skull-wrapper">
+    <span class="skull">💀</span>
+  </div>
 
-            const distance = Math.sqrt(
-                Math.pow(e.clientX - btnCenterX, 2) + 
-                Math.pow(e.clientY - btnCenterY, 2)
-            );
+  <div class="text-block">
+    <div class="line1">Santi has hacked your computer</div>
+    <div class="line2">haha not really</div>
+    <div class="status">// system integrity: <span>nominal</span> &nbsp;|&nbsp; threat level: <span>zero</span></div>
+  </div>
+</div>
 
-            // If cursor is close (within 80px), gently push the button away
-            if (distance < 80) {
-                const angle = Math.atan2(btnCenterY - e.clientY, btnCenterX - e.clientX);
-                // Push by 10 pixels in the direction away from cursor
-                offsetX += Math.cos(angle) * 10;
-                offsetY += Math.sin(angle) * 10;
-                
-                noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-            }
-        });
-
-        // Yes button click
-        yesBtn.addEventListener('click', () => {
-            container.style.display = 'none';
-            
-            // Function to create a burst of hearts
-            function createHeartBurst() {
-                for (let i = 0; i < 30; i++) {
-                    const heart = document.createElement('div');
-                    heart.className = 'heart';
-                    heart.textContent = '💕';
-                    
-                    // Random position from center
-                    const startX = window.innerWidth / 2;
-                    const startY = window.innerHeight / 2;
-                    
-                    heart.style.left = startX + 'px';
-                    heart.style.top = startY + 'px';
-                    
-                    // Random direction for each heart
-                    const angle = (Math.random() * Math.PI * 2);
-                    const distance = Math.random() * 200 + 100;
-                    const tx = Math.cos(angle) * distance;
-                    const ty = Math.sin(angle) * distance;
-                    
-                    heart.style.setProperty('--tx', tx + 'px');
-                    heart.style.setProperty('--ty', ty + 'px');
-                    
-                    document.body.appendChild(heart);
-                    
-                    // Remove the heart from DOM after animation completes
-                    setTimeout(() => {
-                        heart.remove();
-                    }, 3000);
-                }
-            }
-            
-            // Create initial burst
-            createHeartBurst();
-            
-            // Create new bursts every 500ms indefinitely
-            setInterval(createHeartBurst, 500);
-        });
-
-        // No button click - shrink the container by 50%
-        noBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const currentScale = parseFloat(container.style.transform.match(/scale\(([\d.]+)\)/) ? container.style.transform.match(/scale\(([\d.]+)\)/)[1] : 1);
-            const newScale = currentScale * 0.5;
-            container.style.transform = `scale(${newScale})`;
-            container.style.transformOrigin = 'center center';
-        });
-    </script>
 </body>
 </html>
