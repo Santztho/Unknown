@@ -548,7 +548,7 @@ function calcScore(art, std, n, z) {
 }
 
 function scoreColor(s) {
-  if (s <= 15)  return { fill:'#4fffb0', text:'#00cc7a', bg:'rgba(79,255,176,0.08)', border:'rgba(79,255,176,0.25)', label:'Good' };
+  if (s <= 15.01)  return { fill:'#4fffb0', text:'#00cc7a', bg:'rgba(79,255,176,0.08)', border:'rgba(79,255,176,0.25)', label:'Good' };
   if (s <= 20) return { fill:'#ffb347', text:'#ffb347', bg:'rgba(255,179,71,0.08)',  border:'rgba(255,179,71,0.25)',  label:'Moderate' };
   return             { fill:'#ff5f6d', text:'#ff5f6d', bg:'rgba(255,95,109,0.08)', border:'rgba(255,95,109,0.25)', label:'Needs attention' };
 }
