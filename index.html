@@ -778,7 +778,7 @@ function render() {
   document.getElementById('hero_n').textContent      = n.toLocaleString();
 
   // Factors
-  const artColor = art <= 5 ? '#4fffb0' : art <= 10 ? '#ffb347' : '#ff5f6d';
+  const artColor = art <= 12 ? '#4fffb0' : art <= 15 ? '#ffb347' : '#ff5f6d';
   document.getElementById('factor_art_val').textContent   = art.toFixed(2) + ' min';
   document.getElementById('factor_art_val').style.color   = artColor;
   document.getElementById('factor_art_label').textContent = art <= 12 ? 'Within target' : art <= 15 ? 'Slightly above target' : 'Above target — focus here';
