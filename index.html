@@ -672,7 +672,7 @@ function buildInsights(art, std, n) {
 
   if (art <= 3)       insights.push('Your average response time is excellent — you\'re replying very quickly.');
   else if (art <= 6)  insights.push('Your average response time is solid and within a healthy range.');
-  else if (art <= 12) insights.push('Your average response time is a bit high. Aim to respond faster to bring this down.');
+  else if (art <= 12.5) insights.push('Your average response time is a bit high. Aim to respond faster to bring this down.');
   else                insights.push('Your average response time is significantly above target. This is the biggest thing to focus on.');
 
   if (ratio < 0.5)    insights.push('Your response times are very consistent — customers get a reliable, predictable experience from you.');
@@ -781,7 +781,7 @@ function render() {
   const artColor = art <= 5 ? '#4fffb0' : art <= 10 ? '#ffb347' : '#ff5f6d';
   document.getElementById('factor_art_val').textContent   = art.toFixed(2) + ' min';
   document.getElementById('factor_art_val').style.color   = artColor;
-  document.getElementById('factor_art_label').textContent = art <= 5 ? 'Within target' : art <= 10 ? 'Slightly above target' : 'Above target — focus here';
+  document.getElementById('factor_art_label').textContent = art <= 12 ? 'Within target' : art <= 15 ? 'Slightly above target' : 'Above target — focus here';
   const cons = consistencyLabel(art, std);
   const ratio = std / Math.max(art, 0.1);
   const consColor = ratio < 1 ? '#4fffb0' : ratio < 2 ? '#ffb347' : '#ff5f6d';
